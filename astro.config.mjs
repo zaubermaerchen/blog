@@ -8,6 +8,5 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   site: 'https://blog.zaubermaerchen.info',
   integrations: [mdx(), sitemap()],
-  output: "server",
   adapter: netlify()
 });
