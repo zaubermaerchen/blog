@@ -11,7 +11,7 @@ OpenHomeサーバーとして[readyMedia(旧MiniDLNA)](https://sourceforge.net/p
 - アルバムアーティスト情報しか送ってくれないのでコンピレーションアルバムとかだと
 - 複数枚CDの場合ディスク番号順→トラック番号順にソートしてくれない
 
-等、不満が色々あったのでMinimServerに乗り換えてみたので手順をメモ
+等、不満が色々あったので[MinimServer](https://minimserver.com/)に乗り換えてみたので手順をメモ
 
 1. MinimServerをコンテナ上で動かす
 
