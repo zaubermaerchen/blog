@@ -65,7 +65,7 @@ OpenHomeサーバーとして[readyMedia(旧MiniDLNA)](https://sourceforge.net/p
         # コンテナが無かったら新しく作る
         /usr/bin/podman run -d --name minimserver --network host \
         --env TZ=Asia/Tokyo \
-        --mount type=bind,曲ファイルが置いてあるディレクトリ,dst=/Music,readonly \
+        --mount type=bind,src=曲ファイルが置いてあるディレクトリ,dst=/Music,readonly \
         minimworld/minimserver:2.2
         ```
 
