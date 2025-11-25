@@ -86,9 +86,11 @@ WSLだと今まではUbuntu使っていたけど、自宅サーバーのOSがArc
     - ripgrep
     - bat
     - eza
+    - mise
     - python-uv
     - github-cli
     - less
+    - wl-clipboard
 
 1. GitHubに置いてある.configを配置
 
