@@ -87,7 +87,7 @@ WSLだと今まではUbuntu使っていたけど、自宅サーバーのOSがArc
     - bat
     - eza
     - mise
-    - python-uv
+    - zellij
     - github-cli
     - less
     - wl-clipboard
