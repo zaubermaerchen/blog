@@ -86,6 +86,7 @@ WSLだと今まではUbuntu使っていたけど、自宅サーバーのOSがArc
     - ripgrep
     - bat
     - eza
+    - zoxide
     - mise
     - zellij
     - github-cli
@@ -97,7 +98,7 @@ WSLだと今まではUbuntu使っていたけど、自宅サーバーのOSがArc
     ``` bash
     git clone https://github.com/zaubermaerchen/dotconfig .config
     printf "LANG=ja_JP.utf8\nZDOTDIR=\$HOME/.config/zsh\nsource \"\$ZDOTDIR/.zshenv\"\n" > .zshenv
-    printf "alias vim=\"nvim\"\nalias ls=\"eza\"\nalias cat=\"bat -pP\"\n" > .config/zsh/.zshrc.local
+    printf "alias vim=\"nvim\"\nalias ls=\"eza --icons --git --no-user\"\nalias ll=\"eza -l --icons --git --no-user\"\nalias tree=\"eza --tree --icons\"\nalias cat=\"bat -pP\"\nalias grep=\"rg\"\n" > .config/zsh/.zshrc.local
     ```
 
 1. 起動したとき作成したこのユーザーで実行されるように設定追加
