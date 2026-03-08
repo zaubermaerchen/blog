@@ -57,7 +57,7 @@ Raspberry Pi 3 Model B + Allo DigiOneにmoOde audio player 10.1.2をインスト
 1. `Configure` > `Audio`からオーディオ設定画面を開く
 1. `MPD Options` > `MPD Settings`の`EDIT`ボタンからMPD設定画面へ移動
 1. `Sox Resampling`の以下記項目を変更
-    - Enable Yes
+    - Enable: Yes
     - Bit depth: 24
     - Sample rate (kHz): 96
     - Selective: resampling Upsample if source < target
