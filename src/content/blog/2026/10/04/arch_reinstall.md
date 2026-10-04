@@ -181,17 +181,13 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
 1. ネットワーク設定
 
-    1. ホスト名設定
+    ``` bash
+    # ホスト名設定
+    hostnamectl set-hostname ホスト名
 
-        ``` bash
-        hostnamectl set-hostname ホスト名
-        ```
-
-    1. サービスの有効化
-
-        ``` bash
-        systemctl enable NetworkManager
-        ```
+    # NewworkManagerサービスの有効化
+    systemctl enable NetworkManager
+    ```
 
 1. Initramfs
 
@@ -238,7 +234,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
         `enp4s0`(外付け)を通常通信用として使用するように設定
     
-        ```bash
+        ``` bash
         nmcli connection add \
             type ethernet \
             ifname enp4s0 \
@@ -282,7 +278,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
             外部接続用サブネットを送信元とする通信はtable 101を使わせる
 
-            ```
+            ``` bash
             nmcli connection modify management \
                 ipv4.routing-rules \
                 "priority 100 from 192.168.101.0/24 table 101"
@@ -292,7 +288,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
             `ipv4.route-table=101`にするとDHCP由来のconnected routeもtable 101へ入るため、main tableにも明示的に追加
 
-            ```
+            ``` bash
             nmcli connection modify management \
                 +ipv4.routes \
                 "192.168.101.0/24 0.0.0.0 1002 table=254"
@@ -316,7 +312,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     共通で使うパッケージを入れておく
 
-    ```bash
+    ``` bash
 	pacman -S base-devel ethtool curl logrotate bash-completion less man-db man-pages usbutils
 	```
 
@@ -324,7 +320,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     1. インストールと有効化
 
-        ```bash
+        ``` bash
         pacman -S firewalld
         systemctl enable --now firewalld
         ```
@@ -345,7 +341,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
 	1. ユーザーが使うパッケージのインストール
 
-        ```
+        ``` bash
         pacman -S zsh ghostty-terminfo sheldon starship zoxide bat eza ripgrep skim zellij github-cli mise
         ```
 
@@ -353,7 +349,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
         今回作るユーザーはGID/UIDが共に1000なのでこんな感じ
 
-        ```bash
+        ``` bash
         getent passwd 1000
         getent group 1000
         ```
@@ -364,7 +360,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
         確認したGID/UIDを使ってユーザーを作成
 
-        ```bash
+        ``` bash
         groupadd -g 1000 ユーザー名
         useradd -u 1000 -g 1000 -d /home/ユーザー名 -s /usr/bin/zsh -M ユーザー名
         passwd ユーザー名
@@ -372,7 +368,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     1. sudoを使えるようにする
 
-        ```bash
+        ``` bash
         usermod -aG wheel ユーザー名
         EDITOR=vi visudo
         ```
@@ -384,7 +380,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
 	1. デフォルト設定をオーバライドする
 
-        ```bash
+        ``` bash
         mkdir -p /etc/ssh/sshd_config.d
         cat > /etc/ssh/sshd_config.d/10-local.conf <<'EOF'
         PermitRootLogin no
@@ -395,7 +391,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
 	1. 設定を検証して問題なければ有効化する
 
-        ```bash
+        ``` bash
         sshd -t
         systemctl enable --now sshd.service
         ```
@@ -403,9 +399,9 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 1. Samba
     1. インストール
 
-        SambaをWindowsから検出させたいのでwsddも
+        SambaをWindowsから検出させたいのでwsddも入れる
 
-        ```bash
+        ``` bash
         pacman -S samba wsdd
         ```
         
@@ -414,7 +410,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
         Arch Linuxではパッケージを入れてもSambaの設定ファイルが生成されないのでダウンロード
 
-        ```bash
+        ``` bash
         curl "https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD" -o /etc/samba/smb.conf
         ```
 
@@ -449,7 +445,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     1. サービスの有効化と起動
 
-        ```bash
+        ``` bash
         sudo systemctl enable --now smb.service
         sudo systemctl enable --now wsdd.service
         ```
@@ -476,13 +472,13 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     1. インストール
 
-        ```bash
+        ``` bash
 	    pacman -S avahi
         ```
 
     1. `enp4s0`のみ有効にする
 
-        ```bash
+        ``` bash
         sed -i 's/#allow-interfaces=eth0/allow-interfaces=enp4s0/' /etc/avahi/avahi-daemon.conf
         ```
 	
@@ -511,7 +507,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 
     1. サービスの有効化と起動
 
-        ```bash
+        ``` bash
         systemctl enable --now avahi-daemon.service
         ```
 	
