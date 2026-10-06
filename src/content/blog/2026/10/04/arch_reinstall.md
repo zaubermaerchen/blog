@@ -112,8 +112,8 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
 1. データストレージを接続するため一旦シャットダウン
 
     ``` bash
-	sudo umount -R /mnt
-	sudo poweroff
+	umount -R /mnt
+	poweroff
     ```
 
 1. システムストレージ、データストレージのマウント
@@ -227,23 +227,39 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
         umount -R /mnt
         ```
 
+    1. インストールディスクを抜いてシャットダウン
+
+        ``` bash
+        poweroff
+        ```
+
 ### 各種サービス有効化
+
+電源再投入後、設定したパスワードでrootにログイン
 
 1. ネットワーク有効化
     1. `enp4s0`設定
 
         `enp4s0`(外付け)を通常通信用として使用するように設定
     
-        ``` bash
-        nmcli connection add \
-            type ethernet \
-            ifname enp4s0 \
-            con-name main \
-            ipv4.method auto \
-            ipv4.route-metric 100 \
-            ipv6.method auto \
-            ipv6.route-metric 100
-        ```	
+        1. コネクション設定作成
+
+            ``` bash
+            nmcli connection add \
+                type ethernet \
+                ifname enp4s0 \
+                con-name main \
+                ipv4.method auto \
+                ipv4.route-metric 100 \
+                ipv6.method auto \
+                ipv6.route-metric 100
+            ```	
+
+        1. NICとゾーンの紐づけ
+
+            ``` bash
+            nmcli connection modify main connection.zone home
+            ```
 
     1. `enp3s0`設定
 
@@ -294,12 +310,11 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
                 "192.168.101.0/24 0.0.0.0 1002 table=254"
             ```
 
-    1. NICとゾーンの紐づけ
+        1. NICとゾーンの紐づけ
 
-        ``` bash
-        nmcli connection modify main connection.zone home
-        nmcli connection modify management connection.zone public
-        ```
+            ``` bash
+            nmcli connection modify management connection.zone public
+            ```
 
     1. 接続を有効化
 
@@ -335,7 +350,7 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
         firewall-cmd --list-all --zone=home
         ```
 
-3. ユーザー作成
+3. ログインユーザー作成
 
     既存`/home`に合わせてユーザーを再作成する
 
