@@ -400,6 +400,10 @@ NICは外付けがネットワーク用、オンボードが外部からのSSH�
         cat > /etc/ssh/sshd_config.d/10-local.conf <<'EOF'
         PermitRootLogin no
         PasswordAuthentication no
+        AllowTcpForwarding no
+        AllowAgentForwarding no
+        X11Forwarding no
+        PermitTunnel no
         EOF
         ```
 
